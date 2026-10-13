@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <h1>My Blog</h1>
+
+    <% if (user) { %>
+        <p>Welcome, <%= user.username %>!</p>
+        <form action="/logout" method="POST">
+            <button type="submit">Log Out</button>
+        </form>
+
+        <h2>Create a Post</h2>
+        <form action="/posts" method="POST">
+            <label>Title:</label>
+            <input type="text" name="title" required>
+
+            <label>Content:</label>
+            <textarea name="content" required></textarea>
+
+            <button type="submit">Publish Post</button>
+        </form>
+        <% } else { %>
+            <p><a href="/signup">Sign Up</a> | <a href="/login">Log In</a></p>
+            <% } %>
+
+                <h2>Blog Posts</h2>
+
+                <% if (posts.length===0) { %>
+                    <p>No posts yet.</p>
+                    <% } %>
+
+                        <% posts.forEach(post=> { %>
+                            <article>
+                                <h3>
+                                    <%= post.title %>
+                                </h3>
+                                <p>
+                                    <%= post.content %>
+                                </p>
+                                <p>By <%= post.username %> — <%= post.created_at %>
+                                </p>
+
+                                <% if (user && user.id===post.user_id) { %>
+                                    <a href="/posts/edit/<%= post.id %>">Edit</a>
+
+                                    <form action="/posts/delete/<%= post.id %>" method="POST">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </article>
+                            <% }); %>
+</body>
+
+</html>

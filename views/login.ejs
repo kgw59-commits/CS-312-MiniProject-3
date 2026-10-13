@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+    <h1>Log In</h1>
+
+    <% if (error) { %>
+        <p>
+            <%= error %>
+        </p>
+        <% } %>
+
+            <form action="/login" method="POST">
+                <label>Username:</label>
+                <input type="text" name="username" required>
+
+                <label>Password:</label>
+                <input type="password" name="password" required>
+
+                <button type="submit">Log In</button>
+            </form>
+
+            <p>Need an account? <a href="/signup">Sign up</a></p>
+            <p><a href="/">Back to Blog</a></p>
+</body>
+
+</html>
